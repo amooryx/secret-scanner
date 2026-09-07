@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="./banner.svg" alt="secret-scanner" width="800">
+</div>
+
 # API Key & Secret Scanner
 
 A command-line tool designed to detect leaked credentials, certificates, and secrets in files and folders using Regex rules and Shannon Entropy analysis.
