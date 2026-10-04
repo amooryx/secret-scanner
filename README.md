@@ -4,13 +4,12 @@
 
 # API Key & Secret Scanner
 
-A command-line tool designed to detect leaked credentials, certificates, and secrets in files and folders using Regex rules and Shannon Entropy analysis.
-
 ## 📋 Features
 
-- **Shannon Entropy Analysis**: Calculates string randomness metrics to detect cryptographically strong keys and reduce false positives.
-- **Provider Signatures**: Built-in regex matches for common API keys (AWS, Google Cloud, Stripe, Slack, Slack Webhooks, etc.).
-- **Directory and File Scans**: Recursively audits files, folders, or specific target directories.
+- **Provider Signatures**: Detects common AWS, Google, Slack, Stripe, GitHub, JWT, and private-key patterns.
+- **Local by default**: A target is read as a local file unless it is an explicit HTTP(S) URL. File names containing dots are not treated as hosts.
+- **Secret-safe findings**: Reports finding types and severity without printing matched credential values.
+- **Explicit authorization**: Prompts for authorization before scanning; use `--yes` only when authorization is already established.
 
 ## ⚙️ Installation
 
@@ -20,24 +19,23 @@ A command-line tool designed to detect leaked credentials, certificates, and sec
    cd secret-scanner
    ```
 
-2. Install dependencies:
-   ```bash
-   pip install pathspec
-   ```
+2. No third-party dependencies are required.
 
 ## 🚀 Usage
 
-Scan a local directory:
+Scan a local file (the default and recommended mode):
 
 ```bash
-python main.py -p /path/to/source-code
+python main.py --yes path/to/config.json
 ```
 
-Set entropy thresholds (default is 4.5):
+Scan a remote page only by providing its full HTTP(S) URL:
 
 ```bash
-python main.py -p /path/to/source-code --entropy 5.0
+python main.py --yes https://example.com/config
 ```
+
+The scanner reads remote response content but does not upload local files. Findings and JSON exports contain no matched secret values. This command scans one file or one URL; it does not recursively scan directories or perform entropy analysis.
 
 ## 🛡️ Disclaimer
 
